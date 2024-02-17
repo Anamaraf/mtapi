@@ -9,4 +9,8 @@
     <PackageReference Include="UnmanagedExports.Repack" Version="1.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MTApiService\MTApiService.csproj" />
+  </ItemGroup>
+
 </Project>
