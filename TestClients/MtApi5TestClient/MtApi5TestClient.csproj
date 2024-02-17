@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MtApi5TestClient</RootNamespace>
     <AssemblyName>MtApi5TestClient</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -139,7 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\MtApi5\MtApi5.csproj">
-      <Project>{AC8B5010-DA75-477E-9CA5-547C649E12D8}</Project>
+      <Project>{ac8b5010-da75-477e-9ca5-547c649e12d8}</Project>
       <Name>MtApi5</Name>
     </ProjectReference>
   </ItemGroup>
