@@ -1,24 +1,29 @@
 ﻿using System;
 using System.Text;
 using System.Runtime.InteropServices;
+
+using MTApiService;
 using RGiesecke.DllExport;
 
 namespace MT5ConnectorCS
 {
     public class MT5Connector
     {
-        //[StructLayout(LayoutKind.Sequential, Pack = 1)]
-        //public struct CMqlRates
-        //{
-        //    public long time;         // Period start time
-        //    public double open;       // Open price
-        //    public double high;       // The highest price of the period
-        //    public double low;        // The lowest price of the period
-        //    public double close;      // Close price
-        //    public long tick_volume;  // Tick volume
-        //    public int spread;        // Spread
-        //    public long real_volume;  // Trade volume
-        //}
+        //private const string LogProfileName = "MT5Connector";
+        //private static readonly MtLog Log = LogConfigurator.GetLogger(typeof(MT5Connector));
+
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        private struct CMqlRates
+        {
+            public long time;         // Period start time
+            public double open;       // Open price
+            public double high;       // The highest price of the period
+            public double low;        // The lowest price of the period
+            public double close;      // Close price
+            public long tick_volume;  // Tick volume
+            public int spread;        // Spread
+            public long real_volume;  // Trade volume
+        }
 
         //private static string ConvertSystemString(string src)
         //{
@@ -32,39 +37,64 @@ namespace MT5ConnectorCS
         //    }
         //}
 
-        //private static T Execute<T>(Func<T> func, StringBuilder err, T default_value)
+        private static T Execute<T>(Func<T> func, StringBuilder err, T default_value)
+        {
+            T result = default_value;
+            try
+            {
+                result = func();
+            }
+            catch (Exception e)
+            {
+                //err.Append(ConvertSystemString(e.Message));
+                err.Append(e.Message);
+                MtAdapter.GetInstance().LogError(e.Message);
+            }
+            return result;
+        }
+
+        //private static T Execute<T>(Func<T> func, out string err, T defaultValue)
         //{
-        //    T result = default_value;
+        //    T result = defaultValue;
+        //    err = null;
         //    try
         //    {
         //        result = func();
         //    }
         //    catch (Exception e)
         //    {
-        //        err.Append(ConvertSystemString(e.Message));
+        //        err = e.Message;
         //        MtAdapter.GetInstance().LogError(e.Message);
         //    }
         //    return result;
         //}
         
         [DllExport]
-        public static bool initExpert(int expertHandle, int port, string symbol, double bid, double ask, int isTestMode, out string err)
+        public static bool initExpert(int expertHandle, int port, string symbol, double bid, double ask, int isTestMode, [In, Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder err)
         {
-            err = "";
-            return true;
-            
-            //bool result = false;
+            //MtAdapter.GetInstance().LogError("No error");
+
+            bool result = false;
             //err = "";
 
-            //result = Execute(() =>
-            //{
-            //    bool isTesting = (isTestMode != 0) ? true : false;
-            //    var expert = new Mt5Expert(expertHandle, symbol, bid, ask, new MT5Handler(), isTesting);
-            //    MtAdapter.GetInstance().AddExpert(port, expert);
-            //    return true;
-            //}, out err, false);
+            try
+            {
+                result = Execute(() =>
+                {
+                    MtAdapter.GetInstance().LogError("initExpert() error");
 
-            //return result;
+                    bool isTesting = (isTestMode != 0) ? true : false;
+                    var expert = new Mt5Expert(expertHandle, symbol, bid, ask, new MT5Handler(), isTesting);
+                    MtAdapter.GetInstance().AddExpert(port, expert);
+                    return true;
+                }, err, false);
+            }
+            catch (Exception e)
+            {
+                err.Append($"\n{e.Message} \nInner: {e.InnerException} \nStackTrace: {e.StackTrace} \nToString: {e}");
+            }
+
+            return result;
         }
 
         //[DllExport]
