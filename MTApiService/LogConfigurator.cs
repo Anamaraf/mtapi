@@ -90,7 +90,7 @@ namespace MTApiService
             };
             patternLayout.ActivateOptions();
 
-            var filename = $"{DateTime.Now:yyyy-dd-M--HH-mm-ss}-{Process.GetCurrentProcess().Id}.{LogFileNameExtension}";
+            var filename = $"{DateTime.Now:yyyy.MM.dd_HH-mm-ss}_{Process.GetCurrentProcess().Id}.{LogFileNameExtension}";
 
             var roller = new RollingFileAppender
             {
