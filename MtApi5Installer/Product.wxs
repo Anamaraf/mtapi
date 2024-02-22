@@ -75,25 +75,15 @@
 
                 <RegistryKey Root="HKLM"
                     Key="Software\Microsoft\.NetFramework\v4.0.30319\AssemblyFoldersEx\$(var.ProductName)"
-                    Action="createAndRemoveOnUninstall">
+                    ForceCreateOnInstall="yes"
+                    ForceDeleteOnUninstall="yes">
                     <RegistryValue Type="string" Value="[INSTALLFOLDER]"/>
                 </RegistryKey>
-
             </Component>
-          
+            
             <Component Id="NewtonsoftJsondll" Directory="INSTALLFOLDER">
                 <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" KeyPath="yes"
-                    src="$(var.ProductPath)Newtonsoft.Json.dll"/>
-            </Component>
-
-            <Component Id="log4netdll" Directory="INSTALLFOLDER">
-                <File Id="log4net.dll" Name="log4net.dll" KeyPath="yes"
-                    src="$(var.ProductPath)log4net.dll"/>
-            </Component>
-
-            <Component Id="MTApiServiceDll" Directory="INSTALLFOLDER">
-                <File Id="GAC_MTApiService.dll" Name="MTApiService.dll" KeyPath="yes"
-                    src="$(var.ProductPath)MTApiService.dll"/>
+                    Source="$(var.ProductPath)Newtonsoft.Json.dll"/>
             </Component>
 
             <Component Id="MtApi5Expert" Directory="ExpertFolder">
@@ -112,8 +102,9 @@
 
             <Component Id="ConnectionProfileRegistryKey" Guid="*" Directory="INSTALLFOLDER">
                 <RegistryKey Root="HKCU"
-                             Key="Software\MtApi\ConnectionProfiles\Local"
-                      Action="createAndRemoveOnUninstall">
+                      Key="Software\MtApi\ConnectionProfiles\Local"
+                      ForceCreateOnInstall="yes"
+                      ForceDeleteOnUninstall="yes">
                     <RegistryValue Type="string" Name="Host" Value=""/>
                     <RegistryValue Type="integer" Name="Port" Value="8222" KeyPath="yes"/>
                 </RegistryKey>
@@ -121,13 +112,13 @@
 
             <Component Id="MTApiServiceDllGAC" Guid="6CD24D64-7DA1-4015-A5B3-B17C2488998C" Directory="GAC">
                 <File Id="MTApiService.dll" Name="MTApiService.dll" KeyPath="yes"
-                    src="$(var.ProductPath)MTApiService.dll" Checksum="yes"
+                    Source="$(var.ProductPath)MTApiService.dll" Checksum="yes"
                     Assembly=".net" AssemblyManifest="MTApiService.dll" Vital="yes" />
             </Component>
 
-            <Component Id="MT5ConnectorDll" Directory="$(var.PlatformSystemFolder)">
+            <Component Id="MT5ConnectorDll" Directory="$(var.PlatformSystemFolder)" Permanent="no">
                 <File Id="MT5Connector5.dll" Name="MT5Connector.dll" KeyPath="yes"
-                      Source="$(var.ProductPathNative)MT5Connector.dll" />
+                      Source="$(var.ProductPathNative)MT5Connector.dll"/>
             </Component>
 
         </ComponentGroup>
