@@ -3,7 +3,7 @@
     <Target Name="ILRepacker" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
         <ItemGroup>
             <InputAssemblies Include="$(TargetPath)" />
-            <InputAssemblies Include="@..\packages\log4net.2.0.10\lib\net40\log4net.dll" Condition="'%(filename)' == 'log4net'" />
+            <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'log4net'" />
         </ItemGroup>
         <ILRepack AllowDuplicateResources="false" DebugInfo="true" Internalize="true"
                   InputAssemblies="@(InputAssemblies)" OutputFile="$(TargetPath)"
