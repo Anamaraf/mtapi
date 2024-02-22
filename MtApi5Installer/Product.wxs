@@ -86,6 +86,11 @@
                     src="$(var.ProductPath)Newtonsoft.Json.dll"/>
             </Component>
 
+            <Component Id="log4netdll" Directory="INSTALLFOLDER">
+                <File Id="log4net.dll" Name="log4net.dll" KeyPath="yes"
+                    src="$(var.ProductPath)log4net.dll"/>
+            </Component>
+
             <Component Id="MTApiServiceDll" Directory="INSTALLFOLDER">
                 <File Id="GAC_MTApiService.dll" Name="MTApiService.dll" KeyPath="yes"
                     src="$(var.ProductPath)MTApiService.dll"/>
