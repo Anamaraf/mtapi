@@ -113,6 +113,7 @@
     <ProjectReference Include="..\MTApiService\MTApiService.csproj">
       <Project>{de76d5c7-b99c-4467-8408-78173bdd84e0}</Project>
       <Name>MTApiService</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
