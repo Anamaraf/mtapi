@@ -3,13 +3,14 @@ using System.Text;
 using System.Runtime.InteropServices;
 using MTApiService;
 using RGiesecke.DllExport;
-using log4net;
+using MTApiService;
 
 namespace MT5ConnectorCS
 {
     public class MT5Connector
     {
-        //private static readonly ILog Log = LogManager.GetLogger(typeof(MT5Connector));
+        //private const string LogProfileName = "MT5Connector";
+        //private static readonly MtLog Log = LogConfigurator.GetLogger(typeof(MT5Connector));
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         private struct CMqlRates
