@@ -290,6 +290,10 @@ namespace MtApi5TestClient
         #region Public Methods
         public ViewModel()
         {
+            var clrVersion = Environment.Version;
+            var file = $@"{System.IO.Path.GetTempPath()}profileName\Logs\";
+                
+
             // Init MtApi client
             _mtApiClient = new MtApi5Client();
 
